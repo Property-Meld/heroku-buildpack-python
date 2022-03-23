@@ -20,9 +20,9 @@ if [ ! "$SKIP_PIP_INSTALL" ]; then
     fi
     # just add another var for custom private pypi index-url auth token
     if [[ -r "$ENV_DIR/FURY_AUTH" ]]; then
-        puts-step "FOUND FURY_AUTH"
         FURY_AUTH="$(cat "$ENV_DIR/FURY_AUTH")"
         export FURY_AUTH
+        puts-step "FOUND FURY_AUTH $FURY_AUTH"
         mcount "buildvar.FURY_AUTH"
     else
         puts-step "MISSING FURY_AUTH"

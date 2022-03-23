@@ -18,6 +18,12 @@ if [ ! "$SKIP_PIP_INSTALL" ]; then
         export PIP_EXTRA_INDEX_URL
         mcount "buildvar.PIP_EXTRA_INDEX_URL"
     fi
+    # just add another var for custom private pypi index-url auth token
+    if [[ -r "$ENV_DIR/FURY_AUTH" ]]; then
+        FURY_AUTH="$(cat "$ENV_DIR/FURY_AUTH")"
+        export FURY_AUTH
+        mcount "buildvar.FURY_AUTH"
+    fi
 
     set +e
 

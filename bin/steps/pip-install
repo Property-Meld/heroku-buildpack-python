@@ -22,7 +22,7 @@ if [ ! "$SKIP_PIP_INSTALL" ]; then
     if [[ -r "$ENV_DIR/FURY_AUTH" ]]; then
         FURY_AUTH="$(cat "$ENV_DIR/FURY_AUTH")"
         export FURY_AUTH
-        puts-step "FOUND FURY_AUTH $FURY_AUTH"
+        puts-step "FOUND FURY_AUTH *******${FURY_AUTH: -6}"
         mcount "buildvar.FURY_AUTH"
     else
         puts-step "MISSING FURY_AUTH"
@@ -55,7 +55,7 @@ if [ ! "$SKIP_PIP_INSTALL" ]; then
 
     /app/.heroku/python/bin/pip cache purge 2>&1 | tee "$WARNINGS_LOG" | cleanup | indent
 
-    /app/.heroku/python/bin/pip install -r "$BUILD_DIR/requirements.txt" --exists-action=w --src=/app/.heroku/src --disable-pip-version-check --no-cache-dir 2>&1 | tee "$WARNINGS_LOG" | cleanup | indent
+    /app/.heroku/python/bin/pip install -r "$BUILD_DIR/requirements.txt" --exists-action=w --src=/app/.heroku/src --disable-pip-version-check --no-cache-dir | sed "s/$FURY_AUTH/****${FURY_AUTH: -6}/g" 2>&1 | tee "$WARNINGS_LOG" | cleanup | indent
     PIP_STATUS="${PIPESTATUS[0]}"
     set -e
 

@@ -54,7 +54,6 @@ if [ ! "$SKIP_PIP_INSTALL" ]; then
     sed "s/AUTH_TOKEN_HERE/$FURY_AUTH/g" "$BUILD_DIR/old.requirements.txt" > "$BUILD_DIR/requirements.txt"
 
     /app/.heroku/python/bin/pip cache purge 2>&1 | tee "$WARNINGS_LOG" | cleanup | indent
-
     /app/.heroku/python/bin/pip install -r "$BUILD_DIR/requirements.txt" --exists-action=w --src=/app/.heroku/src --disable-pip-version-check --no-cache-dir | sed "s/$FURY_AUTH/****${FURY_AUTH: -6}/g" 2>&1 | tee "$WARNINGS_LOG" | cleanup | indent
     PIP_STATUS="${PIPESTATUS[0]}"
     set -e

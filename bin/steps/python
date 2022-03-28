@@ -108,6 +108,9 @@ if [ -f .heroku/python-version ]; then
   fi
 fi
 
+# just a boop
+echo boop > "$CACHE_DIR/.heroku/requirements.txt"
+
 # Check if we should reinstall python dependencies
 if [[ ! -f "$CACHE_DIR/.heroku/requirements.txt" ]]; then
   # IF there's no cached dependencies, update cached version of requirements.txt
